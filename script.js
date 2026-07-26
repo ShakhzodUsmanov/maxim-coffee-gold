@@ -146,56 +146,6 @@ if (toggleSwitch) {
   });
 }
 
-// ─── Cursor dot (premium feel) ────────────
-const cursor = document.createElement('div');
-cursor.id = 'cursor-dot';
-cursor.style.cssText = `
-  position:fixed; width:8px; height:8px;
-  background:var(--gold, #F5C518); border-radius:50%;
-  pointer-events:none; z-index:9999;
-  transform:translate(-50%,-50%);
-  transition:width 0.2s, height 0.2s, background 0.2s;
-  mix-blend-mode:difference;
-`;
-document.body.appendChild(cursor);
-
-const cursorRing = document.createElement('div');
-cursorRing.id = 'cursor-ring';
-cursorRing.style.cssText = `
-  position:fixed; width:32px; height:32px;
-  border:1.5px solid rgba(245,197,24,0.6); border-radius:50%;
-  pointer-events:none; z-index:9998;
-  transform:translate(-50%,-50%);
-  transition:all 0.12s ease;
-`;
-document.body.appendChild(cursorRing);
-
-let mx = 0, my = 0;
-document.addEventListener('mousemove', (e) => {
-  mx = e.clientX; my = e.clientY;
-  cursor.style.left = mx + 'px';
-  cursor.style.top  = my + 'px';
-  cursorRing.style.left = mx + 'px';
-  cursorRing.style.top  = my + 'px';
-});
-
-document.querySelectorAll('a, button, .coffee-pill, .social-circle').forEach((el) => {
-  el.addEventListener('mouseenter', () => {
-    cursor.style.width  = '14px';
-    cursor.style.height = '14px';
-    cursorRing.style.width  = '48px';
-    cursorRing.style.height = '48px';
-    cursorRing.style.borderColor = 'rgba(245,197,24,0.9)';
-  });
-  el.addEventListener('mouseleave', () => {
-    cursor.style.width  = '8px';
-    cursor.style.height = '8px';
-    cursorRing.style.width  = '32px';
-    cursorRing.style.height = '32px';
-    cursorRing.style.borderColor = 'rgba(245,197,24,0.6)';
-  });
-});
-
 // ─── Animate numbers on price ──────────────
 function animateValue(el, start, end, duration) {
   const startTime = performance.now();
@@ -220,5 +170,5 @@ if (priceBig) {
   priceObserver.observe(priceBig);
 }
 
-console.log('%c☕ MAXIM COFFEE — Life begins after flavour', 
+console.log('%c☕ MAXIM COFFEE — Life begins after flavour',
   'color:#F5C518; font-size:16px; font-weight:bold; background:#0F2D1E; padding:10px 20px; border-radius:8px;');
