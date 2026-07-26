@@ -57,14 +57,6 @@ window.addEventListener('scroll', () => {
   }
 }, { passive: true });
 
-// ─── Cart Button Pulse ─────────────────────
-const cartBtn = document.getElementById('cart-btn');
-if (cartBtn) {
-  cartBtn.addEventListener('click', () => {
-    cartBtn.style.transform = 'scale(0.9)';
-    setTimeout(() => { cartBtn.style.transform = 'scale(1)'; }, 150);
-  });
-}
 
 // ─── Order buttons ─────────────────────────
 const orderBtns = document.querySelectorAll('#order-btn-nav, #order-btn-large');

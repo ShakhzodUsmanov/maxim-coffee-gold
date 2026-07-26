@@ -166,31 +166,6 @@ img {
   color: var(--white);
 }
 
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.cart-btn {
-  position: relative;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
-  border-radius: var(--radius-sm);
-  color: var(--white);
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all var(--transition);
-}
-
-.cart-btn:hover {
-  background: rgba(255, 255, 255, 0.14);
-  border-color: var(--gold);
-}
 
 .cart-badge {
   position: absolute;
