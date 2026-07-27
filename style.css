@@ -90,7 +90,8 @@ img {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding-top: 72px; /* offset for fixed navbar */
+  padding-top: 72px;
+  /* offset for fixed navbar */
 }
 
 /* subtle radial glow behind the drinks */
@@ -470,78 +471,61 @@ img {
   gap: 12px;
 }
 
-.beans-scatter {
+.stick-float {
   position: relative;
-  width: 80px;
-  height: 60px;
+  width: 120px;
+  height: 110px;
+  flex-shrink: 0;
 }
 
-.bean {
+.stick-img {
   position: absolute;
-  width: 12px;
-  height: 7px;
-  background: var(--gold-muted);
-  border-radius: var(--radius-full);
+  width: 115px;
+  object-fit: contain;
+  border-radius: 4px;
+  filter: drop-shadow(0 6px 18px rgba(245, 197, 24, 0.28))
+          drop-shadow(0 2px 6px rgba(0, 0, 0, 0.4));
+}
+
+.stick-img.s1 {
+  top: 0px;
+  left: 0px;
+  transform: rotate(-12deg);
+  animation: stickFloat1 4.2s ease-in-out infinite;
+  z-index: 3;
+}
+
+.stick-img.s2 {
+  top: 32px;
+  left: 4px;
+  transform: rotate(-6deg);
+  animation: stickFloat2 3.8s ease-in-out infinite 0.6s;
+  z-index: 2;
+  opacity: 0.85;
+}
+
+.stick-img.s3 {
+  top: 64px;
+  left: 8px;
+  transform: rotate(-1deg);
+  animation: stickFloat3 4.5s ease-in-out infinite 1.2s;
+  z-index: 1;
   opacity: 0.7;
 }
 
-.bean.b1 {
-  top: 5px;
-  left: 20px;
-  transform: rotate(-20deg);
-  animation: beanFloat1 3s ease-in-out infinite;
+@keyframes stickFloat1 {
+  0%, 100% { transform: translateY(0px) rotate(-12deg); }
+  50%       { transform: translateY(-7px) rotate(-11deg); }
 }
 
-.bean.b2 {
-  top: 18px;
-  left: 5px;
-  transform: rotate(15deg);
-  animation: beanFloat2 3.5s ease-in-out infinite 0.5s;
+@keyframes stickFloat2 {
+  0%, 100% { transform: translateY(0px) rotate(-6deg); }
+  50%       { transform: translateY(-9px) rotate(-5deg); }
 }
 
-.bean.b3 {
-  top: 8px;
-  left: 45px;
-  transform: rotate(-5deg);
-  animation: beanFloat1 4s ease-in-out infinite 1s;
-}
-
-.bean.b4 {
-  top: 30px;
-  left: 30px;
-  transform: rotate(30deg);
-  animation: beanFloat2 2.8s ease-in-out infinite 0.2s;
-}
-
-.bean.b5 {
-  top: 20px;
-  left: 60px;
-  transform: rotate(-15deg);
-  animation: beanFloat1 3.2s ease-in-out infinite 0.8s;
-}
-
-@keyframes beanFloat1 {
-
-  0%,
-  100% {
-    transform: translateY(0) rotate(-20deg);
-  }
-
-  50% {
-    transform: translateY(-5px) rotate(-15deg);
-  }
-}
-
-@keyframes beanFloat2 {
-
-  0%,
-  100% {
-    transform: translateY(0) rotate(15deg);
-  }
-
-  50% {
-    transform: translateY(-4px) rotate(20deg);
-  }
+@keyframes stickFloat3 {
+  0%, 100% { transform: translateY(0px) rotate(-1deg); }
+  50%       { transform: translateY(-6px) rotate(0deg); }
 }
 
 .hero-side-copy.right {
@@ -1242,6 +1226,137 @@ img {
   background: var(--gold-dark);
   transform: translateY(-2px);
   box-shadow: 0 10px 40px rgba(245, 197, 24, 0.5);
+}
+
+/* ============================================
+   CAROUSEL 3D FAN
+   ============================================ */
+.carousel-section {
+  background: var(--cream);
+  padding: 60px 0 80px;
+  overflow: hidden;
+}
+
+.carousel-3d-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.carousel-3d-track {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+
+/* Each slide */
+.c3d-slide {
+  position: absolute;
+  width: 320px;
+  height: 370px;
+  border-radius: 22px;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    transform 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.65s ease,
+    z-index 0s,
+    box-shadow 0.45s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  will-change: transform, opacity;
+}
+
+.c3d-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ─── Position states ─── */
+/* Center (active) */
+.c3d-slide[data-pos="0"] {
+  transform: translateX(0) rotateY(0deg) scale(1);
+  z-index: 5;
+  opacity: 1;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(245, 197, 24, 0.25);
+}
+
+/* Adjacent left */
+.c3d-slide[data-pos="-1"] {
+  transform: translateX(-310px) rotateY(18deg) scale(0.84);
+  z-index: 4;
+  opacity: 0.75;
+}
+
+/* Adjacent right */
+.c3d-slide[data-pos="1"] {
+  transform: translateX(310px) rotateY(-18deg) scale(0.84);
+  z-index: 4;
+  opacity: 0.75;
+}
+
+/* Far left */
+.c3d-slide[data-pos="-2"] {
+  transform: translateX(-560px) rotateY(28deg) scale(0.68);
+  z-index: 3;
+  opacity: 0.42;
+}
+
+/* Far right */
+.c3d-slide[data-pos="2"] {
+  transform: translateX(560px) rotateY(-28deg) scale(0.68);
+  z-index: 3;
+  opacity: 0.42;
+}
+
+/* Hidden (off-screen) */
+.c3d-slide[data-pos="-3"],
+.c3d-slide[data-pos="3"] {
+  transform: translateX(-700px) rotateY(38deg) scale(0.5);
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.c3d-slide[data-pos="3"] {
+  transform: translateX(700px) rotateY(-38deg) scale(0.5);
+}
+
+/* ─── Controls ─── */
+.carousel-3d-controls {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.c3d-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: 2px solid rgba(27, 67, 50, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--green-dark);
+  transition: all var(--transition);
+}
+
+.c3d-btn:hover {
+  background: var(--green-dark);
+  border-color: var(--green-dark);
+  color: var(--gold);
+  transform: scale(1.08);
 }
 
 /* ============================================

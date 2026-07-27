@@ -212,3 +212,67 @@ galleryPanels.forEach((panel) => {
   });
 });
 
+
+// ─── 3D Fan Carousel ─────────────────────
+(function () {
+  const slides = Array.from(document.querySelectorAll('.c3d-slide'));
+  if (!slides.length) return;
+
+  const total = slides.length;
+  let current = 0;
+  let autoTimer = null;
+  const AUTO_DELAY = 3500;
+
+  function getPos(slideIndex) {
+    let diff = slideIndex - current;
+    while (diff > Math.floor(total / 2)) diff -= total;
+    while (diff < -Math.floor(total / 2)) diff += total;
+    return diff;
+  }
+
+  function render() {
+    slides.forEach((slide, i) => {
+      const pos = getPos(i);
+      slide.setAttribute('data-pos', Math.abs(pos) <= 2 ? pos : (pos < 0 ? -3 : 3));
+    });
+  }
+
+  function goTo(index) {
+    current = ((index % total) + total) % total;
+    render();
+  }
+
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  function startAuto() {
+    stopAuto();
+    autoTimer = setInterval(next, AUTO_DELAY);
+  }
+
+  function stopAuto() {
+    if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+  }
+
+  slides.forEach((slide, i) => {
+    slide.addEventListener('click', () => {
+      goTo(i);
+      stopAuto();
+      startAuto();
+    });
+  });
+
+  const btnPrev = document.getElementById('c3d-prev');
+  const btnNext = document.getElementById('c3d-next');
+  if (btnPrev) btnPrev.addEventListener('click', () => { prev(); stopAuto(); startAuto(); });
+  if (btnNext) btnNext.addEventListener('click', () => { next(); stopAuto(); startAuto(); });
+
+  const wrap = document.getElementById('carousel-3d-wrap');
+  if (wrap) {
+    wrap.addEventListener('mouseenter', stopAuto);
+    wrap.addEventListener('mouseleave', startAuto);
+  }
+
+  render();
+  startAuto();
+})();
