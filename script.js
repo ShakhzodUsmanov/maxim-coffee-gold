@@ -164,3 +164,20 @@ if (priceBig) {
 
 console.log('%c☕ MAXIM COFFEE — Life begins after flavour',
   'color:#F5C518; font-size:16px; font-weight:bold; background:#0F2D1E; padding:10px 20px; border-radius:8px;');
+
+// ─── Gallery Fan / Accordion ──────────────
+const galleryPanels = document.querySelectorAll('.gallery-panel');
+
+galleryPanels.forEach((panel) => {
+  panel.addEventListener('click', () => {
+    galleryPanels.forEach((p) => p.classList.remove('active'));
+    panel.classList.add('active');
+  });
+
+  // Also activate on mouseenter for desktop hover feel
+  panel.addEventListener('mouseenter', () => {
+    galleryPanels.forEach((p) => p.classList.remove('active'));
+    panel.classList.add('active');
+  });
+});
+

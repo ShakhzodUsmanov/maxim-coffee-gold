@@ -833,22 +833,6 @@ img {
   gap: 4px;
 }
 
-/* ─── Our Coffee Heading ─── */
-.our-coffee-heading {
-  padding: 20px 80px 60px;
-}
-
-.our-coffee-title {
-  font-family: var(--font-display);
-  font-size: clamp(56px, 8vw, 96px);
-  color: var(--green-dark);
-  letter-spacing: 0.02em;
-}
-
-.yellow-text {
-  color: var(--gold-dark);
-}
-
 /* ============================================
    SECTION 3 — CATEGORIES
    ============================================ */
@@ -1273,6 +1257,22 @@ img {
   .footer-inner {
     padding: 0 40px;
   }
+
+  /* ─── Gallery @ 1100px (tablet) ─── */
+  .gallery-heading {
+    padding: 20px 40px 44px;
+  }
+
+  .gallery-fan {
+    height: 460px;
+    padding: 0 24px;
+    gap: 8px;
+  }
+
+  .gallery-panel-desc {
+    font-size: 0.78rem;
+    max-width: 240px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -1314,9 +1314,6 @@ img {
     width: 100%;
   }
 
-  .our-coffee-heading {
-    padding: 10px 24px 40px;
-  }
 
   .categories-header {
     padding: 40px 20px 30px;
@@ -1337,5 +1334,241 @@ img {
     flex-direction: column;
     padding: 0 24px;
     gap: 28px;
+  }
+
+  /* ─── Gallery @ 768px (mobile) — vertical stack ─── */
+  .gallery-section {
+    padding: 50px 0 40px;
+  }
+
+  .gallery-heading {
+    padding: 0 20px 32px;
+  }
+
+  .gallery-fan {
+    flex-direction: column;
+    height: auto;
+    padding: 0 16px;
+    gap: 12px;
+    cursor: default;
+  }
+
+  .gallery-panel {
+    flex: none;
+    width: 100%;
+    height: 260px;
+    border-radius: 18px;
+    min-width: unset;
+  }
+
+  /* On mobile: always show content, no expand needed */
+  .gallery-panel,
+  .gallery-panel.active {
+    flex: none;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  }
+
+  .gallery-panel-content {
+    opacity: 1;
+    transform: translateY(0);
+    padding: 20px 18px;
+  }
+
+  .gallery-panel-title {
+    font-size: 1.3rem;
+    margin-bottom: 6px;
+  }
+
+  .gallery-panel-desc {
+    font-size: 0.78rem;
+    max-width: 100%;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .gallery-badge {
+    font-size: 0.65rem;
+    padding: 3px 10px;
+    margin-bottom: 8px;
+  }
+}
+
+/* ─── Gallery Section ─── */
+.gallery-section {
+  background: var(--cream);
+  padding: 80px 0 60px;
+  overflow: hidden;
+}
+
+.gallery-heading {
+  padding: 20px 80px 60px;
+}
+
+.gallery-title {
+  font-family: var(--font-display);
+  font-size: clamp(56px, 8vw, 96px);
+  color: var(--green-dark);
+  letter-spacing: 0.02em;
+}
+
+.gallery-subtitle {
+  font-size: 0.9rem;
+  color: var(--white-60);
+  font-weight: 400;
+}
+
+.yellow-text {
+  color: var(--gold-dark);
+}
+
+/* ─── Fan/Accordion Container ─── */
+.gallery-fan {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  height: 520px;
+  padding: 0 40px;
+  cursor: pointer;
+}
+
+/* ─── Individual Panel ─── */
+.gallery-panel {
+  position: relative;
+  flex: 0.6;
+  border-radius: 24px;
+  overflow: hidden;
+  transition: flex 0.65s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease;
+  cursor: pointer;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  min-width: 60px;
+}
+
+.gallery-panel:hover,
+.gallery-panel.active {
+  flex: 3.8;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(245, 197, 24, 0.18);
+}
+
+/* ─── Panel Image ─── */
+.gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-panel:hover .gallery-img,
+.gallery-panel.active .gallery-img {
+  transform: scale(1.04);
+}
+
+/* ─── Gradient Overlay ─── */
+.gallery-panel-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top,
+      rgba(0, 0, 0, 0.88) 0%,
+      rgba(0, 0, 0, 0.35) 45%,
+      transparent 75%);
+  border-radius: inherit;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+/* ─── Panel Text Content ─── */
+.gallery-panel-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 28px 24px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.45s ease 0.1s, transform 0.45s ease 0.1s;
+  pointer-events: none;
+}
+
+.gallery-panel.active .gallery-panel-content,
+.gallery-panel:hover .gallery-panel-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Badge ─── */
+.gallery-badge {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.92);
+  color: #0a0a0a;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 14px;
+}
+
+.gallery-panel-title {
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  color: var(--white);
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+
+.gallery-panel-desc {
+  font-size: 0.82rem;
+  color: var(--white-80);
+  font-weight: 400;
+  line-height: 1.6;
+  max-width: 280px;
+}
+
+/* ─── Gallery @ 480px (small phones) ─── */
+@media (max-width: 480px) {
+  .gallery-section {
+    padding: 36px 0 32px;
+  }
+
+  .gallery-heading {
+    padding: 0 16px 24px;
+  }
+
+  .gallery-title {
+    font-size: clamp(36px, 10vw, 56px);
+  }
+
+  .gallery-fan {
+    padding: 0 12px;
+    gap: 10px;
+  }
+
+  .gallery-panel {
+    height: 210px;
+    border-radius: 14px;
+  }
+
+  .gallery-panel-content {
+    padding: 16px 14px;
+  }
+
+  .gallery-panel-title {
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+  }
+
+  .gallery-panel-desc {
+    font-size: 0.72rem;
+    -webkit-line-clamp: 2;
+  }
+
+  .gallery-badge {
+    font-size: 0.6rem;
+    padding: 2px 8px;
+    margin-bottom: 6px;
   }
 }
