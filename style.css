@@ -651,8 +651,8 @@ img {
   padding: 10px 0;
   width: 110%;
   margin-left: -5%;
-  border-top: 2px solid var(--gold);
-  border-bottom: 2px solid var(--gold);
+  border-top: 3px solid var(--gold);
+  border-bottom: 3px solid var(--gold);
   z-index: 999;
 }
 
