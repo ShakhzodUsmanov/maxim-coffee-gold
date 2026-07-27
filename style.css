@@ -90,6 +90,7 @@ img {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  padding-top: 72px; /* offset for fixed navbar */
 }
 
 /* subtle radial glow behind the drinks */
@@ -108,12 +109,24 @@ img {
 
 /* ─── Navbar ─── */
 .navbar {
-  position: relative;
-  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 900;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24px 48px;
+  padding: 20px 48px;
+  background: transparent;
+  transition: background 0.35s ease, backdrop-filter 0.35s ease, border-bottom 0.35s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(15, 45, 30, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(245, 197, 24, 0.15);
 }
 
 .nav-links {
@@ -181,6 +194,144 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ─── Burger Button ─── */
+.burger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  width: 36px;
+  height: 36px;
+}
+
+.burger-line {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: transform 0.35s ease, opacity 0.35s ease, width 0.35s ease;
+  transform-origin: center;
+}
+
+/* ─── Mobile Drawer ─── */
+.mobile-drawer {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.mobile-drawer.open {
+  pointer-events: all;
+}
+
+.drawer-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.mobile-drawer.open .drawer-overlay {
+  opacity: 1;
+}
+
+.drawer-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: min(320px, 85vw);
+  height: 100%;
+  background: linear-gradient(160deg, #0F2D1E 0%, #1A3C2B 60%, #152C22 100%);
+  padding: 28px 28px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+}
+
+.mobile-drawer.open .drawer-panel {
+  transform: translateX(0);
+}
+
+.drawer-close {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  color: var(--white-80);
+  cursor: pointer;
+  padding: 4px;
+  margin-bottom: 24px;
+  transition: color 0.2s;
+}
+
+.drawer-close:hover {
+  color: var(--gold);
+}
+
+.drawer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 36px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid rgba(245, 197, 24, 0.15);
+}
+
+.drawer-brand span {
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--white);
+}
+
+.drawer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.drawer-link {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--white-80);
+  padding: 14px 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  transition: color 0.25s ease, padding-left 0.25s ease;
+  display: block;
+}
+
+.drawer-link:hover {
+  color: var(--gold);
+  padding-left: 16px;
+}
+
+.drawer-order-btn {
+  margin-top: 32px;
+  width: 100%;
+  text-align: center;
+  padding: 14px 24px;
+  font-size: 12px;
 }
 
 .order-btn {
@@ -1276,9 +1427,33 @@ img {
 }
 
 @media (max-width: 768px) {
+  .navbar {
+    padding: 16px 20px;
+  }
+
   .nav-links {
     display: none;
   }
+
+  /* Show burger, hide desktop Order Now */
+  .burger-btn {
+    display: flex;
+  }
+
+  #order-btn-nav {
+    display: none;
+  }
+
+  /* Push burger to far right when nav-links are hidden */
+  .nav-right {
+    margin-left: auto;
+  }
+
+  /* Enable mobile drawer */
+  .mobile-drawer {
+    display: block;
+  }
+
 
   .hero-left-text {
     display: none;

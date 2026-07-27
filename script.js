@@ -40,26 +40,16 @@ revealTargets.forEach((selector) => {
 const navbar = document.getElementById('navbar');
 
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 80) {
-    navbar.style.background = 'rgba(15,45,30,0.92)';
-    navbar.style.backdropFilter = 'blur(12px)';
-    navbar.style.borderBottom = '1px solid rgba(245,197,24,0.15)';
-    navbar.style.position = 'fixed';
-    navbar.style.top = '0';
-    navbar.style.left = '0';
-    navbar.style.right = '0';
-    navbar.style.zIndex = '999';
+  if (window.scrollY > 60) {
+    navbar.classList.add('scrolled');
   } else {
-    navbar.style.background = 'transparent';
-    navbar.style.backdropFilter = 'none';
-    navbar.style.borderBottom = 'none';
-    navbar.style.position = 'relative';
+    navbar.classList.remove('scrolled');
   }
 }, { passive: true });
 
 
 // ─── Order buttons ─────────────────────────
-const orderBtns = document.querySelectorAll('#order-btn-nav, #order-btn-large');
+const orderBtns = document.querySelectorAll('#order-btn-nav, #order-btn-large, #order-btn-drawer');
 orderBtns.forEach((btn) => {
   btn.addEventListener('click', (e) => {
     e.preventDefault();
@@ -164,6 +154,47 @@ if (priceBig) {
 
 console.log('%c☕ MAXIM COFFEE — Life begins after flavour',
   'color:#F5C518; font-size:16px; font-weight:bold; background:#0F2D1E; padding:10px 20px; border-radius:8px;');
+
+// ─── Burger / Mobile Drawer ────────────
+const burgerBtn    = document.getElementById('burger-btn');
+const mobileDrawer = document.getElementById('mobile-drawer');
+const drawerOverlay= document.getElementById('drawer-overlay');
+const drawerClose  = document.getElementById('drawer-close');
+const drawerLinks  = document.querySelectorAll('.drawer-link, #order-btn-drawer');
+
+function openDrawer() {
+  mobileDrawer.classList.add('open');
+  mobileDrawer.setAttribute('aria-hidden', 'false');
+  burgerBtn.setAttribute('aria-expanded', 'true');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDrawer() {
+  mobileDrawer.classList.remove('open');
+  mobileDrawer.setAttribute('aria-hidden', 'true');
+  burgerBtn.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+
+if (burgerBtn) {
+  burgerBtn.addEventListener('click', openDrawer);
+}
+if (drawerClose) {
+  drawerClose.addEventListener('click', closeDrawer);
+}
+if (drawerOverlay) {
+  drawerOverlay.addEventListener('click', closeDrawer);
+}
+
+// Close drawer when a nav link is tapped
+drawerLinks.forEach((link) => {
+  link.addEventListener('click', closeDrawer);
+});
+
+// Close on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeDrawer();
+});
 
 // ─── Gallery Fan / Accordion ──────────────
 const galleryPanels = document.querySelectorAll('.gallery-panel');
