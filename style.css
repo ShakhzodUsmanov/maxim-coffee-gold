@@ -429,6 +429,7 @@ img {
   z-index: 2;
   pointer-events: none;
   animation: floatCursive 4s ease-in-out infinite;
+  text-shadow: 0 4px 32px rgb(0, 0, 0);
 }
 
 @keyframes floatCursive {
