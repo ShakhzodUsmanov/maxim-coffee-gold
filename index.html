@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
   <!-- SEO -->
@@ -38,9 +38,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Marck+Script&family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;900&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Языковые словари (по файлу на язык) + движок переключения -->
+  <script src="assets/i18n/ru.js" defer></script>
+  <script src="assets/i18n/uz.js" defer></script>
+  <script src="assets/i18n/en.js" defer></script>
+  <script src="assets/i18n/i18n.js" defer></script>
 </head>
 
 <body>
@@ -51,10 +57,10 @@
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
       <ul class="nav-links" id="nav-links">
-        <li><a href="#price" id="nav-price">PRICE-LIST</a></li>
-        <li><a href="#coffee" id="nav-coffee">COFFEE</a></li>
-        <li><a href="#gallery" id="nav-gallery">GALLERY</a></li>
-        <li><a href="#store" id="nav-store">STORE</a></li>
+        <li><a href="#price" id="nav-price" data-i18n="nav.priceList">ПРАЙС-ЛИСТ</a></li>
+        <li><a href="#coffee" id="nav-coffee" data-i18n="nav.coffee">КОФЕ</a></li>
+        <li><a href="#gallery" id="nav-gallery" data-i18n="nav.gallery">ГАЛЕРЕЯ</a></li>
+        <li><a href="#store" id="nav-store" data-i18n="nav.store">МАГАЗИН</a></li>
       </ul>
       <div class="nav-brand" id="nav-brand">
         <div class="brand-logo" id="brand-logo">
@@ -71,8 +77,15 @@
       </div>
 
       <div class="nav-right">
-        <button class="order-btn" id="order-btn-nav">ORDER NOW</button>
-        <button class="burger-btn" id="burger-btn" aria-label="Open menu" aria-expanded="false">
+        <div class="lang-switch" id="lang-switch-nav" role="group" aria-label="Выбор языка"
+          data-i18n-aria-label="nav.langLabel">
+          <button type="button" class="lang-btn" data-lang="ru" lang="ru" aria-pressed="false">RU</button>
+          <button type="button" class="lang-btn" data-lang="uz" lang="uz" aria-pressed="false">UZ</button>
+          <button type="button" class="lang-btn" data-lang="en" lang="en" aria-pressed="false">ENG</button>
+        </div>
+        <button class="order-btn" id="order-btn-nav" data-i18n="nav.order">ЗАКАЗАТЬ</button>
+        <button class="burger-btn" id="burger-btn" aria-label="Открыть меню" data-i18n-aria-label="nav.openMenu"
+          aria-expanded="false">
           <span class="burger-line"></span>
           <span class="burger-line"></span>
           <span class="burger-line"></span>
@@ -84,7 +97,7 @@
     <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
       <div class="drawer-overlay" id="drawer-overlay"></div>
       <div class="drawer-panel" id="drawer-panel">
-        <button class="drawer-close" id="drawer-close" aria-label="Close menu">
+        <button class="drawer-close" id="drawer-close" aria-label="Закрыть меню" data-i18n-aria-label="nav.closeMenu">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
             stroke-linecap="round">
             <line x1="18" y1="6" x2="6" y2="18" />
@@ -102,13 +115,19 @@
           </svg>
           <span>MAXKOFF</span>
         </div>
-        <nav class="drawer-nav" aria-label="Mobile navigation">
-          <a href="#price" class="drawer-link" id="drawer-price">PRICE-LIST</a>
-          <a href="#coffee" class="drawer-link" id="drawer-coffee">COFFEE</a>
-          <a href="#store" class="drawer-link" id="drawer-store">STORE</a>
-          <a href="#gallery" class="drawer-link" id="drawer-gallery">GALLERY</a>
+        <nav class="drawer-nav" aria-label="Мобильная навигация" data-i18n-aria-label="nav.mobileNav">
+          <a href="#price" class="drawer-link" id="drawer-price" data-i18n="nav.priceList">ПРАЙС-ЛИСТ</a>
+          <a href="#coffee" class="drawer-link" id="drawer-coffee" data-i18n="nav.coffee">КОФЕ</a>
+          <a href="#store" class="drawer-link" id="drawer-store" data-i18n="nav.store">МАГАЗИН</a>
+          <a href="#gallery" class="drawer-link" id="drawer-gallery" data-i18n="nav.gallery">ГАЛЕРЕЯ</a>
         </nav>
-        <button class="order-btn drawer-order-btn" id="order-btn-drawer">ORDER NOW</button>
+        <div class="lang-switch lang-switch--drawer" id="lang-switch-drawer" role="group" aria-label="Выбор языка"
+          data-i18n-aria-label="nav.langLabel">
+          <button type="button" class="lang-btn" data-lang="ru" lang="ru" aria-pressed="false">RU</button>
+          <button type="button" class="lang-btn" data-lang="uz" lang="uz" aria-pressed="false">UZ</button>
+          <button type="button" class="lang-btn" data-lang="en" lang="en" aria-pressed="false">ENG</button>
+        </div>
+        <button class="order-btn drawer-order-btn" id="order-btn-drawer" data-i18n="nav.order">ЗАКАЗАТЬ</button>
       </div>
     </div>
 
@@ -124,29 +143,31 @@
           </div>
           <div class="line-decor"></div>
         </div>
-        <p class="hero-side-copy" id="hero-side-copy">DISCOVER COFFEE BLISS.<br />START YOUR COFFEE<br />JOURNAL HERE.
+        <p class="hero-side-copy" id="hero-side-copy" data-i18n-html="hero.sideLeft">ОТКРОЙТЕ КОФЕЙНОЕ<br />БЛАЖЕНСТВО.
+          НАЧНИТЕ<br />СВОЙ ПУТЬ ЗДЕСЬ.
         </p>
       </div>
 
       <div class="hero-headline" id="hero-headline">
-        <span class="cursive-overlay" id="cursive-overlay">Coffee Bliss</span>
-        <h1 class="main-title" id="main-title">
-          LIFE BEGINS<br />
-          AFTER <span class="yellow">MAXIM</span>
+        <span class="cursive-overlay" id="cursive-overlay" data-i18n="hero.cursive">Кофейное блаженство</span>
+        <h1 class="main-title" id="main-title"><span data-i18n-html="hero.titleBefore">ЖИЗНЬ НАЧИНАЕТСЯ<br />ПОСЛЕ
+          </span><span class="yellow">MAXIM</span><span data-i18n-html="hero.titleAfter"></span>
         </h1>
       </div>
 
       <div class="hero-right-text" id="hero-right-text">
         <div class="stick-float" id="stick-float" aria-hidden="true">
-          <img src="assets/img/stick.png" alt="Maxim Coffee Stick" class="stick-img s1" />
-          <img src="assets/img/stick.png" alt="Maxim Coffee Stick" class="stick-img s2" />
-          <img src="assets/img/stick.png" alt="Maxim Coffee Stick" class="stick-img s3" />
+          <img src="assets/img/stick.png" alt="Стик Maxim Coffee" data-i18n-alt="hero.stickAlt" class="stick-img s1" />
+          <img src="assets/img/stick.png" alt="Стик Maxim Coffee" data-i18n-alt="hero.stickAlt" class="stick-img s2" />
+          <img src="assets/img/stick.png" alt="Стик Maxim Coffee" data-i18n-alt="hero.stickAlt" class="stick-img s3" />
         </div>
-        <p class="hero-side-copy right" id="hero-right-copy">EMBARK ON YOUR COFFEE<br />JOURNEY AND SAVOR<br />EVERY
-          MOMENT</p>
-        <a href="https://t.me/maxkoffuz" class="more-details-link" id="more-details-link">MORE DETAILS</a>
+        <p class="hero-side-copy right" id="hero-right-copy" data-i18n-html="hero.sideRight">ОТПРАВЬТЕСЬ В
+          КОФЕЙНОЕ<br />ПУТЕШЕСТВИЕ И ЦЕНИТЕ<br />КАЖДОЕ МГНОВЕНИЕ</p>
+        <a href="https://t.me/maxkoffuz" class="more-details-link" id="more-details-link"
+          data-i18n="hero.moreDetails">ПОДРОБНЕЕ</a>
         <div class="social-side" id="social-side">
-          <a href="tel: +998930930053" class="social-circle" id="social-phone" aria-label="Phone">
+          <a href="tel: +998930930053" class="social-circle" id="social-phone" aria-label="Телефон"
+            data-i18n-aria-label="hero.phone">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path
                 d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.02l-2.21 2.2z" />
@@ -170,7 +191,8 @@
 
     <!-- Hero product image -->
     <div class="hero-product" id="hero-product">
-      <img src="assets/img/maxim_hero.png" alt="Three premium Maxim Coffee frappe drinks Vanilla Caramel and Chocolate"
+      <img src="assets/img/maxim_hero.png"
+        alt="Три премиальных напитка фраппе Maxim Coffee: ваниль, карамель и шоколад" data-i18n-alt="hero.productAlt"
         id="hero-product-img" />
     </div>
 
@@ -186,8 +208,9 @@
           </div>
         </div>
         <div class="accent-text">
-          <strong>TOP RATED COFFEE</strong>
-          <p>DISCOVER COFFEE BLISS. START YOUR JOURNEY, TASTE EVERY MOMENT.</p>
+          <strong data-i18n="accent.topRated">КОФЕ С ЛУЧШИМ РЕЙТИНГОМ</strong>
+          <p data-i18n="accent.topRatedDesc">ОТКРОЙТЕ КОФЕЙНОЕ БЛАЖЕНСТВО. НАЧНИТЕ СВОЙ ПУТЬ, ПОЧУВСТВУЙТЕ КАЖДОЕ
+            МГНОВЕНИЕ.</p>
         </div>
       </div>
       <div class="accent-bar-center" id="accent-bar-center">
@@ -204,8 +227,8 @@
               </svg>
             </div>
             <div>
-              <strong>MILKSHAKE WITH CHOCOLATE</strong>
-              <p>EMBARK ON YOUR COFFEE JOURNEY AND SAVOR EVERY MOMENT</p>
+              <strong data-i18n="accent.milkshake">МОЛОЧНЫЙ КОКТЕЙЛЬ С ШОКОЛАДОМ</strong>
+              <p data-i18n="accent.milkshakeDesc">ОТПРАВЬТЕСЬ В КОФЕЙНОЕ ПУТЕШЕСТВИЕ И ЦЕНИТЕ КАЖДОЕ МГНОВЕНИЕ</p>
             </div>
           </div>
           <div class="milkshake-thumb" id="milkshake-thumb">
@@ -227,10 +250,10 @@
   <section class="pricelist-section" id="price">
     <div class="pricelist-header" id="pricelist-header">
       <h2 class="pricelist-title" id="pricelist-title">
-        PICK YOUR
+        <span data-i18n="price.titleBefore">ВЫБЕРИТЕ СВОЙ</span>
         <span class="pricelist-cursive-wrap">
           <span class="pricelist-cursive">Maxim Coffee</span>
-          PRODUCT
+          <span data-i18n="price.titleAfter">ПРОДУКТ</span>
         </span>
       </h2>
     </div>
@@ -240,12 +263,13 @@
       <!-- Card 1 — 250 sticks (Featured / Popular) -->
       <article class="pl-card " id="pl-card-1">
         <div class="pl-card-img-wrap">
-          <img src="assets/img/sticks-250.webp" alt="Maxim Coffee 250 Sticks Box" class="pl-card-img" />
+          <img src="assets/img/sticks-250.webp" alt="Коробка Maxim Coffee на 100 стиков" data-i18n-alt="price.card1.alt"
+            class="pl-card-img" />
         </div>
         <div class="pl-card-content">
           <div class="pl-card-header">
-            <h3 class="pl-card-title">Блок Стиков</h3>
-            <span class="pl-card-sub">Месячный запас (100 шт)</span>
+            <h3 class="pl-card-title" data-i18n="price.card1.title">Блок Стиков</h3>
+            <span class="pl-card-sub" data-i18n="price.card1.sub">Месячный запас (100 шт)</span>
           </div>
           <div class="pl-card-meta">
             <span class="pl-meta-tag">
@@ -253,18 +277,18 @@
                 <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
                 <line x1="7" y1="7" x2="7.01" y2="7" />
               </svg>
-              от <strong>240 000 сум</strong>
+              <span data-i18n-html="price.card1.price">от <strong>240 000 сум</strong></span>
             </span>
             <span class="pl-meta-tag">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path
                   d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
               </svg>
-              100 шт
+              <span data-i18n="price.card1.qty">100 шт</span>
             </span>
           </div>
           <div class="pl-card-actions">
-            <button class="pl-card-action-btn">Заказать</button>
+            <button class="pl-card-action-btn" data-i18n="price.order">Заказать</button>
           </div>
         </div>
       </article>
@@ -272,12 +296,14 @@
       <!-- Card 2 — 1 stick -->
       <article class="pl-card pl-card--featured" id="pl-card-2">
         <div class="pl-card-img-wrap">
-          <img src="assets/img/sticks.webp" alt="Maxim Coffee 1 Stick" class="pl-card-img" />
+          <img src="assets/img/sticks.webp" alt="Один стик Maxim Coffee" data-i18n-alt="price.card2.alt"
+            class="pl-card-img" />
         </div>
         <div class="pl-card-content">
           <div class="pl-card-header">
+            <!-- Название продукта — часть бренда, не переводится -->
             <h3 class="pl-card-title">Maxim Coffee Stick</h3>
-            <span class="pl-card-sub">Arabica Blend (1 шт)</span>
+            <span class="pl-card-sub" data-i18n="price.card2.sub">Arabica Blend (1 шт)</span>
           </div>
           <div class="pl-card-meta">
             <span class="pl-meta-tag">
@@ -285,18 +311,18 @@
                 <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
                 <line x1="7" y1="7" x2="7.01" y2="7" />
               </svg>
-              от <strong>2 500 сум</strong>
+              <span data-i18n-html="price.card2.price">от <strong>2 500 сум</strong></span>
             </span>
             <span class="pl-meta-tag">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path
                   d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
               </svg>
-              1 шт
+              <span data-i18n="price.card2.qty">1 шт</span>
             </span>
           </div>
           <div class="pl-card-actions">
-            <button class="pl-card-action-btn">Заказать</button>
+            <button class="pl-card-action-btn" data-i18n="price.order">Заказать</button>
           </div>
         </div>
       </article>
@@ -304,12 +330,13 @@
       <!-- Card 3 — 500 sticks -->
       <article class="pl-card" id="pl-card-3">
         <div class="pl-card-img-wrap">
-          <img src="assets/img/box-with-100.webp" alt="Maxim Coffee Box 500 Sticks" class="pl-card-img" />
+          <img src="assets/img/box-with-100.webp" alt="Коробка Maxim Coffee на 500 стиков"
+            data-i18n-alt="price.card3.alt" class="pl-card-img" />
         </div>
         <div class="pl-card-content">
           <div class="pl-card-header">
-            <h3 class="pl-card-title">Мега Коробка</h3>
-            <span class="pl-card-sub">Максимальная выгода (500 шт)</span>
+            <h3 class="pl-card-title" data-i18n="price.card3.title">Мега Коробка</h3>
+            <span class="pl-card-sub" data-i18n="price.card3.sub">Максимальная выгода (500 шт)</span>
           </div>
           <div class="pl-card-meta">
             <span class="pl-meta-tag">
@@ -317,18 +344,18 @@
                 <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
                 <line x1="7" y1="7" x2="7.01" y2="7" />
               </svg>
-              от <strong>550 000 сум</strong>
+              <span data-i18n-html="price.card3.price">от <strong>550 000 сум</strong></span>
             </span>
             <span class="pl-meta-tag">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path
                   d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
               </svg>
-              500 шт
+              <span data-i18n="price.card3.qty">500 шт</span>
             </span>
           </div>
           <div class="pl-card-actions">
-            <button class="pl-card-action-btn">Заказать</button>
+            <button class="pl-card-action-btn" data-i18n="price.order">Заказать</button>
           </div>
         </div>
       </article>
@@ -457,7 +484,7 @@
     <div class="content-main" id="content-main">
       <div class="content-left" id="content-left">
         <div class="side-product-card" id="side-product-card">
-          <span class="side-tag">KINKER<br />MILK SHAKE</span>
+          <span class="side-tag" data-i18n-html="about.sideTag">KINKER<br />МОЛОЧНЫЙ КОКТЕЙЛЬ</span>
           <div class="side-product-img-wrap" id="side-product-img-wrap">
             <div class="product-icon-placeholder">
               <svg width="64" height="80" viewBox="0 0 64 80" fill="none">
@@ -469,18 +496,19 @@
               </svg>
             </div>
           </div>
-          <p class="side-product-desc">COME IN AND SEE OUR COFFEE AS TRUSTED TO DELIVER THE HARVEST. GET DOPPIO FRAPPE
-            CINNAMON MOCHA OR COFFEE?</p>
+          <p class="side-product-desc" data-i18n="about.sideDesc">ЗАХОДИТЕ И УБЕДИТЕСЬ САМИ: НАШЕМУ КОФЕ ДОВЕРЯЮТ
+            ЛУЧШИЙ УРОЖАЙ. ДОППИО, ФРАППЕ, МОККО С КОРИЦЕЙ ИЛИ КЛАССИЧЕСКИЙ КОФЕ?</p>
         </div>
       </div>
 
       <div class="content-center" id="content-center">
         <div class="big-text-block" id="big-text-block">
           <p class="big-text-line" id="btl-1">
-            USE <span class="inline-cursive">Coffee Bliss</span> PREMIUM ARABICA
+            <span data-i18n="about.line1a">ИСПОЛЬЗУЕМ</span> <span class="inline-cursive"
+              data-i18n="about.bliss">Кофейное блаженство</span> <span data-i18n="about.line1b">ПРЕМИУМ АРАБИКУ</span>
           </p>
           <p class="big-text-line" id="btl-2">
-            FRESH BEANS <span class="bean-icons" aria-hidden="true">
+            <span data-i18n="about.line2a">СВЕЖИЕ ЗЁРНА</span> <span class="bean-icons" aria-hidden="true">
               <svg class="bean-inline" viewBox="0 0 24 24" width="28" height="28">
                 <ellipse cx="12" cy="12" rx="8" ry="5" stroke="#1B4332" stroke-width="2.5" fill="none" />
                 <path d="M12 7 Q16 12 12 17" stroke="#1B4332" stroke-width="2" fill="none" />
@@ -489,20 +517,21 @@
                 <ellipse cx="12" cy="12" rx="8" ry="5" stroke="#1B4332" stroke-width="2.5" fill="none" />
                 <path d="M12 7 Q16 12 12 17" stroke="#1B4332" stroke-width="2" fill="none" />
               </svg>
-            </span> AND FRESHLY
+            </span> <span data-i18n="about.line2b">И СВЕЖЕМОЛОТЫЕ</span>
           </p>
           <p class="big-text-line" id="btl-3">
             <span class="round-pill"><svg width="36" height="36" viewBox="0 0 36 36">
                 <circle cx="18" cy="18" r="17" fill="#F5C518" />
                 <path d="M10 18 Q18 12 26 18" stroke="#1B4332" stroke-width="2" fill="none" />
               </svg></span>
-            GROUND SPICES TO
+            <span data-i18n="about.line3a">СПЕЦИИ ДЛЯ</span>
             <span class="stick-wrapper">
               <span class="stick-pill-bg"></span>
-              <img src="assets/img/maxim-cups.png" alt="Maxim Stick" class="cups-inline-img" />
+              <img src="assets/img/maxim-cups.png" alt="Стик Maxim Coffee" data-i18n-alt="hero.stickAlt"
+                class="cups-inline-img" />
             </span>
           </p>
-          <p class="big-text-line" id="btl-4">UNDENIABLY FLAVOURS COFFEE</p>
+          <p class="big-text-line" id="btl-4" data-i18n="about.line4">БЕЗУПРЕЧНОГО ВКУСА КОФЕ</p>
         </div>
       </div>
     </div>
@@ -518,39 +547,42 @@
     <div class="carousel-3d-wrap" id="carousel-3d-wrap">
       <div class="carousel-3d-track" id="carousel-3d-track">
         <div class="c3d-slide" data-pos="-2">
-          <img src="assets/img/sticks-250.webp" alt="Chilled & Smooth" />
+          <img src="assets/img/sticks-250.webp" alt="Блок Maxim Coffee на 250 стиков"
+            data-i18n-alt="gallery.altSticks250" />
         </div>
         <div class="c3d-slide" data-pos="-1">
-          <img src="assets/img/presentBox.webp" alt="The Perfect Pull" />
+          <img src="assets/img/presentBox.webp" alt="Подарочная коробка Maxim Coffee"
+            data-i18n-alt="gallery.altPresentBox" />
         </div>
         <div class="c3d-slide" data-pos="-1">
-          <img src="assets/img/presentBox.webp" alt="The Perfect Pull" />
+          <img src="assets/img/presentBox.webp" alt="Подарочная коробка Maxim Coffee"
+            data-i18n-alt="gallery.altPresentBox" />
         </div>
         <div class="c3d-slide active" data-pos="0">
-          <img src="assets/img/coffee-cup.webp" alt="Latte Art" />
+          <img src="assets/img/coffee-cup.webp" alt="Чашка кофе Maxim Coffee" data-i18n-alt="gallery.altCoffeeCup" />
         </div>
         <div class="c3d-slide" data-pos="1">
-          <img src="assets/img/sticks.webp" alt="Premium Beans" />
+          <img src="assets/img/sticks.webp" alt="Стики Maxim Coffee" data-i18n-alt="gallery.altSticks" />
         </div>
         <div class="c3d-slide" data-pos="2">
-          <img src="assets/img/box-with-100.webp" alt="Maxim Frappé" />
+          <img src="assets/img/box-with-100.webp" alt="Коробка Maxim Coffee" data-i18n-alt="gallery.altBox100" />
         </div>
         <div class="c3d-slide" data-pos="2">
-          <img src="assets/img/box-with-100.webp" alt="Maxim Frappé" />
+          <img src="assets/img/box-with-100.webp" alt="Коробка Maxim Coffee" data-i18n-alt="gallery.altBox100" />
         </div>
         <div class="c3d-slide" data-pos="2">
-          <img src="assets/img/box-with-100.webp" alt="Maxim Frappé" />
+          <img src="assets/img/box-with-100.webp" alt="Коробка Maxim Coffee" data-i18n-alt="gallery.altBox100" />
         </div>
       </div>
 
       <div class="carousel-3d-controls" id="carousel-3d-controls">
-        <button class="c3d-btn" id="c3d-prev" aria-label="Previous">
+        <button class="c3d-btn" id="c3d-prev" aria-label="Предыдущий" data-i18n-aria-label="gallery.prev">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
             stroke-linecap="round" stroke-linejoin="round">
             <polyline points="15 18 9 12 15 6" />
           </svg>
         </button>
-        <button class="c3d-btn" id="c3d-next" aria-label="Next">
+        <button class="c3d-btn" id="c3d-next" aria-label="Следующий" data-i18n-aria-label="gallery.next">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
             stroke-linecap="round" stroke-linejoin="round">
             <polyline points="9 18 15 12 9 6" />
@@ -563,15 +595,16 @@
   <!-- SECTION 4 — BEANS (dark green) -->
   <section class="beans-section" id="equipment">
     <div class="beans-image-container" id="beans-image-container">
-      <img src="assets/img/coffee_beans.png"
-        alt="Roasted coffee beans falling dramatically against dark green background" id="beans-img" />
+      <img src="assets/img/coffee_beans.png" alt="Обжаренные кофейные зёрна на тёмно-зелёном фоне"
+        data-i18n-alt="beans.alt" id="beans-img" />
       <div class="beans-fade-overlay" aria-hidden="true"></div>
     </div>
     <div class="beans-content" id="beans-content">
       <div class="beans-text" id="beans-text">
         <h2 class="beans-title" id="beans-title">MAXIM<br />COFFEE</h2>
-        <p class="beans-subtitle" id="beans-subtitle">EMBARK ON YOUR COFFEE JOURNEY AND SAVOR EVERY MOMENT</p>
-        <a href="#" class="order-btn-large" id="order-btn-large">ORDER NOW</a>
+        <p class="beans-subtitle" id="beans-subtitle" data-i18n="beans.subtitle">ОТПРАВЬТЕСЬ В КОФЕЙНОЕ ПУТЕШЕСТВИЕ И
+          ЦЕНИТЕ КАЖДОЕ МГНОВЕНИЕ</p>
+        <a href="#" class="order-btn-large" id="order-btn-large" data-i18n="beans.order">ЗАКАЗАТЬ СЕЙЧАС</a>
       </div>
     </div>
   </section>
@@ -594,20 +627,21 @@
             <span class="footer-url">MAXKOFF.COM</span>
           </div>
         </div>
-        <p class="footer-tagline">Life begins after maxim.</p>
+        <p class="footer-tagline" data-i18n="footer.tagline">Жизнь начинается после Maxim.</p>
       </div>
       <div class="footer-center" id="footer-center">
-        <nav class="footer-nav" aria-label="Footer navigation">
-          <a href="#price" id="footer-price">PRICE-LIST</a>
-          <a href="#coffee" id="footer-coffee">COFFEE</a>
-          <a href="#gallery" id="footer-gallery">GALLERY</a>
-          <a href="#store" id="footer-store">STORE</a>
+        <nav class="footer-nav" aria-label="Навигация в подвале" data-i18n-aria-label="footer.nav">
+          <a href="#price" id="footer-price" data-i18n="footer.priceList">Прайс-лист</a>
+          <a href="#coffee" id="footer-coffee" data-i18n="footer.coffee">Кофе</a>
+          <a href="#gallery" id="footer-gallery" data-i18n="footer.gallery">Галерея</a>
+          <a href="#store" id="footer-store" data-i18n="footer.store">Магазин</a>
         </nav>
-        <p class="footer-copy">&copy; 2026 Maxim Coffee. All rights reserved.</p>
+        <p class="footer-copy" data-i18n-html="footer.copy">&copy; 2026 Maxim Coffee. Все права защищены.</p>
       </div>
       <div class="footer-right" id="footer-right">
         <div class="footer-socials" id="footer-socials">
-          <a href="tel: +998930930053" class="footer-social-icon" id="footer-phone" aria-label="Phone">
+          <a href="tel: +998930930053" class="footer-social-icon" id="footer-phone" aria-label="Телефон"
+            data-i18n-aria-label="hero.phone">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path
                 d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.02l-2.21 2.2z" />
