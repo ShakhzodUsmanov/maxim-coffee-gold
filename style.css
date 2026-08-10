@@ -3,7 +3,7 @@
    ============================================ */
 
 /* Google Fonts fallback stack */
-@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Bebas+Neue&family=Inter:wght@300;400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Marck+Script&family=Bebas+Neue&family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;900&display=swap');
 
 /* ─── CSS Variables ─── */
 :root {
@@ -24,7 +24,9 @@
 
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-display: 'Bebas Neue', 'Inter', sans-serif;
-  --font-cursive: 'Dancing Script', cursive;
+  /* В Dancing Script нет кириллицы: браузер доберёт недостающие глифы
+     из Marck Script, а латиница (в т.ч. бренд) останется в Dancing Script. */
+  --font-cursive: 'Dancing Script', 'Marck Script', cursive;
 
   --radius-sm: 8px;
   --radius-md: 16px;
@@ -32,6 +34,12 @@
   --radius-full: 9999px;
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Bebas Neue не содержит кириллицы — для русского берём Oswald,
+   он такой же узкий гротеск и держит вид заголовков. */
+html[lang="ru"] {
+  --font-display: 'Oswald', 'Bebas Neue', 'Inter', sans-serif;
 }
 
 /* ─── Reset & Base ─── */
@@ -201,6 +209,63 @@ img {
   display: flex;
   align-items: center;
   gap: 16px;
+}
+
+/* ─── Language Switcher (RU / UZ / ENG) ─── */
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid rgba(245, 197, 24, 0.35);
+  border-radius: var(--radius-full);
+  background: rgba(15, 45, 30, 0.45);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--white-60);
+  padding: 6px 10px;
+  border-radius: var(--radius-full);
+  line-height: 1;
+  transition: color var(--transition), background var(--transition);
+}
+
+.lang-btn:hover {
+  color: var(--white);
+}
+
+.lang-btn.active {
+  background: var(--gold);
+  color: var(--green-dark);
+}
+
+/* Drawer variant — full width, larger tap targets */
+.lang-switch--drawer {
+  margin-top: 28px;
+  justify-content: space-between;
+  padding: 4px;
+}
+
+.lang-switch--drawer .lang-btn {
+  flex: 1;
+  font-size: 12px;
+  padding: 11px 8px;
+}
+
+/* На узких экранах переключатель живёт только в мобильном меню */
+@media (max-width: 600px) {
+  .navbar .lang-switch {
+    display: none;
+  }
 }
 
 /* ─── Burger Button ─── */
@@ -459,6 +524,37 @@ img {
 
 .main-title .yellow {
   color: var(--gold);
+}
+
+/* «ЖИЗНЬ НАЧИНАЕТСЯ» шире английского «LIFE BEGINS», а между боковыми
+   колонками заголовку достаётся лишь ~944px из 1440px — при исходном кегле
+   строка разрывается и заголовок наползает на упаковки. На десктопе сбавляем
+   кегль, чтобы сохранить исходную вёрстку в две строки. */
+@media (min-width: 1101px) {
+  html[lang="ru"] .main-title {
+    font-size: clamp(50px, 6.8vw, 110px);
+  }
+}
+
+/* 900–1100px боковые колонки ужимают заголовок сильнее всего.
+   Ниже 900px две строки потребовали бы кегля ≤44px — там ровные три
+   строки при обычном размере выглядят лучше (английский ведёт себя так же). */
+@media (min-width: 900px) and (max-width: 1100px) {
+  html[lang="ru"] .main-title {
+    font-size: 5.6vw;
+  }
+}
+
+/* Узкие экраны: «НАЧИНАЕТСЯ» и «BOSHLANADI» — неразрывные слова, при
+   исходном кегле они уезжают за край экрана. */
+@media (max-width: 600px) {
+  html[lang="ru"] .main-title {
+    font-size: clamp(40px, 13vw, 72px);
+  }
+
+  html[lang="uz"] .main-title {
+    font-size: clamp(56px, 19vw, 72px);
+  }
 }
 
 /* ─── Hero Right ─── */
@@ -1739,6 +1835,10 @@ img {
 .footer-nav {
   display: flex;
   gap: 28px;
+  /* Пункты меню в разных языках сильно разной длины
+     («Store» / «Магазин» / «Do'kon») — разрешаем перенос. */
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .footer-nav a {
